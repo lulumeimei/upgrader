@@ -138,11 +138,20 @@ class PlayStoreResults {
   static String? version(Document response) {
     String? version;
     try {
-      final additionalInfoElements = response.getElementsByClassName('hAyfc');
-      final versionElement = additionalInfoElements.firstWhere(
-        (elm) => elm.querySelector('.BgcNfc')!.text == 'Current Version',
-      );
-      final storeVersion = versionElement.querySelector('.htlgb')!.text;
+      // final additionalInfoElements = response.getElementsByClassName('hAyfc');
+      // final versionElement = additionalInfoElements.firstWhere(
+      //   (elm) => elm.querySelector('.BgcNfc')!.text == 'Current Version',
+      // );
+      // final storeVersion = versionElement.querySelector('.htlgb')!.text;
+      final storeVersion = response
+          .getElementsByClassName('bARER')
+          .first
+          .nodes
+          .last
+          .text!
+          .split(" ")
+          .last
+          .replaceAll("]", "");
       // storeVersion might be: 'Varies with device', which is not a valid version.
       version = Version.parse(storeVersion).toString();
     } catch (e) {
